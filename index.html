@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пранк!</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #prankButton {
+            font-size: 24px;
+            padding: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="prankButton">Проверка на робота!</button>
+    <audio id="prankAudio">
+        <source src="screams.mp3" type="audio/mpeg">
+        <source src="screams.ogg" type="audio/ogg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+
+    <script>
+        var prankAudio = document.getElementById("prankAudio");
+
+        // Запуск звука по нажатию на кнопку
+        document.getElementById("prankButton").addEventListener("click", function() {
+            prankAudio.volume = 1.0; // Устанавливаем громкость на максимум
+            prankAudio.play().catch(function(error) {
+                alert("Ошибка при воспроизведении звука: " + error);
+            });
+            this.style.display = "none"; // Прячем кнопку после нажатия
+        });
+
+        // Проверка на автоматический запуск звука
+        window.onload = function() {
+            prankAudio.play().catch(function(error) {
+                // Если не получилось запустить звук, не показываем сообщение
+            });
+        };
+
+        // Запуск звука при клике в любое место страницы, если звук не был запущен автоматически
+        document.body.addEventListener("click", function() {
+            if (!prankAudio.paused) return; // Если звук уже воспроизводится, ничего не делаем
+            prankAudio.volume = 1.0; // Устанавливаем громкость на максимум
+            prankAudio.play().catch(function(error) {
+                alert("Ошибка при воспроизведении звука: " + error);
+            });
+        });
+    </script>
+</body>
+</html>
